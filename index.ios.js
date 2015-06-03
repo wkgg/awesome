@@ -5,6 +5,8 @@
 'use strict';
 
 var React = require('react-native');
+var InsightDetail = require('insight.detail.js');
+
 var {
   AppRegistry,
   StyleSheet,
