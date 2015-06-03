@@ -14,15 +14,45 @@ var {
 } = React;
 
 var awesome = React.createClass({
+  statics: {
+    title: '<TabBarIOS>',
+    description: 'Tab-based navigation.'
+  },
+  getInitialState: function() {
+    return {
+      selectedTab: 'InsightsTab'
+    };
+  },
+  _renderContent: function() {
+    return (
+      <View style={[styles.tabContent, {backgroundColor: 'white'}]}>
+        <Text style={styles.tabText}>{this.state.selectedTab}</Text>
+      </View>
+    );
+  },
   render: function() {
     return (
       <TabBarIOS>
         <TabBarIOS.Item
-          title="Insights">
+          title="Insights"
+          selected={this.state.selectedTab === 'InsightsTab'}
+          onPress={() => {
+            this.setState({
+              selectedTab: 'InsightsTab',
+            });
+          }}>
+          {this._renderContent()}
         </TabBarIOS.Item>
 
         <TabBarIOS.Item
-          title="Events">
+          title="Events"
+          selected={this.state.selectedTab === 'EventsTab'}
+          onPress={() => {
+            this.setState({
+              selectedTab: 'EventsTab',
+            });
+          }}>
+          {this._renderContent()}
         </TabBarIOS.Item>
       </TabBarIOS>
     );
@@ -30,22 +60,15 @@ var awesome = React.createClass({
 });
 
 var styles = StyleSheet.create({
-  container: {
+  tabContent: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+  tabText: {
+    color: 'blue',
+    margin: 40,
   },
 });
+
 
 AppRegistry.registerComponent('awesome', () => awesome);
