@@ -9,24 +9,22 @@ var {
   AppRegistry,
   StyleSheet,
   Text,
+  TabBarIOS,
   View,
 } = React;
 
 var awesome = React.createClass({
   render: function() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
-      </View>
+      <TabBarIOS>
+        <TabBarIOS.Item
+          title="Insights">
+        </TabBarIOS.Item>
+
+        <TabBarIOS.Item
+          title="Events">
+        </TabBarIOS.Item>
+      </TabBarIOS>
     );
   }
 });
