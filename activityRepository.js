@@ -9,17 +9,29 @@ var activityRepo = {};
 AV.initialize(appconfig.appId, appconfig.appKey);
 
 var Activity = AV.Object.extend("Activity");
-var query = new AV.Query(Activity);
 
 activityRepo.getAll = function(success, error){
+	var query = new AV.Query(Activity);
     query.find({
-        success: function(activity) {
-            success(activity);
-        },
-        error: function(object, error) {
-            error(error);
-        }
+        success: success,
+        error: error
     });
+}
+
+activityRepo.getById = function(activityId, success, error){
+	var query = new AV.Query(Activity);
+
+    query.get(activityId, {
+        success: success,
+        error: error
+    });
+}
+
+activityRepo.getList = function(success, error){
+	var query = new AV.Query.doCloudQuery('select title, publishDate from Activity', {
+	success: success,
+	  error: error
+	});
 }
 
 module.exports = activityRepo;

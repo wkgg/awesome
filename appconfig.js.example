@@ -1,6 +1,6 @@
 var config = {};
 
 config.appId = "";
-config.appKey = "x8dvp9agnsojxc0dzvx546bur6r9jgynxy7ft4qg67wdfw6";
+config.appKey = "";
 
 module.exports = config;
