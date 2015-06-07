@@ -14,22 +14,36 @@ var {
     View,
     } = React;
 
-var MOCKED_MOVIES_DATA = [
-    {title: 'Title', year: '2015', posters: {thumbnail: 'http://i.imgur.com/UePbdph.jpg'}},
+var MOCKED_EVENETS_DATA = [
+    {
+        title: '2015 China Blogging Competition',
+        basicInfo: {
+            time: '2015/06/01-2015/06/30',
+            region: 'China'
+        },
+        posters: {
+            thumbnail: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTm-j3fQmP3i6CIBVc_N6WsIYl6Ol4MvMRUqDOO9AqmFyFiAasI'
+        },
+        description: "ThoughtWorkers in China are smart and passionate about technology. We’re out there everyday solving some of our clients’ toughest problems through technology and we’re motivated to better humanity through software. We’re involved in a huge range of initiatives and are driving technical excellence and social change. So why not share your thoughts, experiences and lessons learnt with the outside world?"
+    },
 ];
 
 var EventDetail = React.createClass({
     render: function () {
-        var movie = MOCKED_MOVIES_DATA[0];
+        var event = MOCKED_EVENETS_DATA[0];
         return (
-            <View style={styles.container}>
+            <View style={styles.eventDetail}>
                 <Image
-                    source={{uri: movie.posters.thumbnail}}
+                    source={{uri: event.posters.thumbnail}}
                     style={styles.thumbnail}
                     />
-                <View style={styles.rightContainer}>
-                    <Text style={styles.title}>{movie.title}</Text>
-                    <Text style={styles.year}>{movie.year}</Text>
+                <View style={styles.basicInfo}>
+                    <Text style={styles.title}>{event.title}</Text>
+                    <Text style={styles.time}>Time: {event.basicInfo.time}</Text>
+                    <Text style={styles.time}>Region: {event.basicInfo.region}</Text>
+                </View>
+                <View style={styles.description}>
+                    <Text style={styles.description}>{event.description}</Text>
                 </View>
             </View>
         );
@@ -37,32 +51,31 @@ var EventDetail = React.createClass({
 });
 
 var styles = StyleSheet.create({
-    container: {
+    eventDetail: {
         flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'center',
+        flexDirection: 'column',
         alignItems: 'center',
-        backgroundColor: '#F5FCFF',
-    },
-    rightContainer: {
-        flex: 1,
+        justifyContent: 'center'
     },
     title: {
         fontSize: 20,
         marginBottom: 8,
         textAlign: 'center',
     },
-    year: {
-        textAlign: 'center',
+    time: {
+        textAlign: 'left',
     },
     thumbnail: {
-        width: 53,
-        height: 81,
+        width: 300,
+        height: 300,
     },
-    listView: {
-        paddingTop: 20,
-        backgroundColor: '#F5FCFF',
+    basicInfo: {
+
     },
+    description: {
+        padding: 10
+    }
+
 });
 
 module.exports = EventDetail;
