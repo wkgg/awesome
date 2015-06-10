@@ -30,12 +30,14 @@ var awesome = React.createClass({
   },
   _renderContent: function() {
     return (
-      <NavigatorIOS
-        style={styles.container}
-        initialRoute={{
-          title: 'Event List',
-          component: EventList,
-        }}/>
+        <InsightDetail>
+          </InsightDetail>
+      //<NavigatorIOS
+      //  style={styles.container}
+      //  initialRoute={{
+      //    title: 'Event List',
+      //    component: EventList,
+      //  }}/>
     );
   },
   render: function() {
