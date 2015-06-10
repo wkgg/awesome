@@ -8,6 +8,7 @@ var React = require('react-native');
 var InsightDetail = require('./insight.detail');
 var EventList = require('./eventList')
 var EventDetail = require('./event-detail')
+var InsightList = require('./insight_List')
 
 var {
   AppRegistry,
@@ -28,16 +29,24 @@ var awesome = React.createClass({
       selectedTab: 'InsightsTab'
     };
   },
-  _renderContent: function() {
+  _renderEventList: function() {
     return (
-        <InsightDetail>
-          </InsightDetail>
-      //<NavigatorIOS
-      //  style={styles.container}
-      //  initialRoute={{
-      //    title: 'Event List',
-      //    component: EventList,
-      //  }}/>
+      <NavigatorIOS
+       style={styles.container}
+       initialRoute={{
+         title: 'Event List',
+         component: EventList,
+       }}/>
+    );
+  },
+    _renderInsightList: function() {
+    return (
+      <NavigatorIOS
+       style={styles.container}
+       initialRoute={{
+         title: 'Insight List',
+         component: InsightList,
+       }}/>
     );
   },
   render: function() {
@@ -51,7 +60,7 @@ var awesome = React.createClass({
               selectedTab: 'InsightsTab',
             });
           }}>
-          {this._renderContent()}
+          {this._renderInsightList()}
         </TabBarIOS.Item>
 
         <TabBarIOS.Item
@@ -62,7 +71,7 @@ var awesome = React.createClass({
               selectedTab: 'EventsTab',
             });
           }}>
-          {this._renderContent()}
+          {this._renderEventList()}
         </TabBarIOS.Item>
       </TabBarIOS>
     );

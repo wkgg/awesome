@@ -28,7 +28,7 @@ insightRepo.getById = function(insightId, success, error){
 }
 
 insightRepo.getList = function(success, error){
-	var query = new AV.Query.doCloudQuery('select title, tags, publishDate from Post', {
+	var query = new AV.Query.doCloudQuery('select title, description, tags, publishDate from Post', {
 	success: success,
 	  error: error
 	});
