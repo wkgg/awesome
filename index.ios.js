@@ -6,6 +6,7 @@
 
 var React = require('react-native');
 var InsightDetail = require('./insight.detail');
+var EventList = require('./eventList')
 
 var {
   AppRegistry,
@@ -13,6 +14,7 @@ var {
   Text,
   TabBarIOS,
   View,
+  NavigatorIOS
 } = React;
 
 var awesome = React.createClass({
@@ -27,9 +29,12 @@ var awesome = React.createClass({
   },
   _renderContent: function() {
     return (
-      <View style={[styles.tabContent, {backgroundColor: 'white'}]}>
-        <Text style={styles.tabText}>{this.state.selectedTab}</Text>
-      </View>
+      <NavigatorIOS
+        style={styles.container}
+        initialRoute={{
+          title: 'Event List',
+          component: EventList,
+        }}/>
     );
   },
   render: function() {
@@ -70,6 +75,9 @@ var styles = StyleSheet.create({
     color: 'blue',
     margin: 40,
   },
+  container: {
+    flex: 1
+  }
 });
 
 

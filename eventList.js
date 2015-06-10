@@ -10,6 +10,8 @@ var {
   View,
 } = React;
 
+var EventDetail = require('./event-detail')
+
 var EventList = React.createClass({
   getInitialState: function() {
     var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -36,14 +38,23 @@ var EventList = React.createClass({
       ]),
     };
   },
+  rowPressed(rowData) {
+    this.props.navigator.push({
+      title: "Event Detail",
+      component: EventDetail
+    });
+  },
   _renderRow: function(rowData) {
-    return (         
+    return (  
+      <TouchableHighlight onPress={() => this.rowPressed(rowData)}
+          underlayColor='#dddddd'>       
         <View style={styles.row}>
             <Image style={styles.image} source={{uri: rowData.imageUri}} />
             <Text style={styles.title}>{rowData.title}</Text>
             <Text style={styles.address}>{rowData.address}</Text>
             <Text style={styles.time}>{rowData.time}</Text>
         </View>
+      </TouchableHighlight>
     );
   },
   render: function() {
