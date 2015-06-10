@@ -7,6 +7,7 @@
 var React = require('react-native');
 var InsightDetail = require('./insight.detail');
 var EventList = require('./eventList')
+var EventDetail = require('./event-detail')
 
 var {
   AppRegistry,
