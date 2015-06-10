@@ -14,7 +14,7 @@ var {
     View,
     } = React;
 
-var MOCKED_EVENETS_DATA = [
+var MOCKED_EVENTS_DATA = [
     {
         title: '2015 China Blogging Competition',
         basicInfo: {
@@ -25,12 +25,13 @@ var MOCKED_EVENETS_DATA = [
             thumbnail: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTm-j3fQmP3i6CIBVc_N6WsIYl6Ol4MvMRUqDOO9AqmFyFiAasI'
         },
         description: "ThoughtWorkers in China are smart and passionate about technology. We’re out there everyday solving some of our clients’ toughest problems through technology and we’re motivated to better humanity through software. We’re involved in a huge range of initiatives and are driving technical excellence and social change. So why not share your thoughts, experiences and lessons learnt with the outside world?"
+
     },
 ];
 
 var EventDetail = React.createClass({
     render: function () {
-        var event = MOCKED_EVENETS_DATA[0];
+        var event = MOCKED_EVENTS_DATA[0];
         return (
             <View style={styles.eventDetail}>
                 <Image
@@ -66,14 +67,16 @@ var styles = StyleSheet.create({
         textAlign: 'left',
     },
     thumbnail: {
-        width: 300,
-        height: 300,
+        width: 200,
+        height: 200,
     },
     basicInfo: {
+        paddingBottom: 10
 
     },
     description: {
-        padding: 10
+        padding: 10,
+        borderTopWidth: 1
     }
 
 });
