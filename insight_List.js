@@ -10,6 +10,9 @@ var {
 } = React;
 
 var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+
+var InsightDetail = require('./insight.detail');
+
 var ListViewSimpleExample = React.createClass({
   statics: {
     title: '<ListView> - Simple',
@@ -41,8 +44,10 @@ var ListViewSimpleExample = React.createClass({
   },
 
   _renderRow: function (rowData, sectionID, rowID) {
+    console.log('hahahahahahahhahah');
+    console.log(rowData.id);
     return (
-        <TouchableHighlight onPress={() => this._pressRow(rowID)}>
+        <TouchableHighlight onPress={() => this._pressRow(rowData.id)}>
           <View>
             <Text>
             {rowData.get('title')}
@@ -50,9 +55,17 @@ var ListViewSimpleExample = React.createClass({
           </View>
         </TouchableHighlight>
     );
-  }
+  }.bind(this)
 
 })
+
+_pressRow = function(objectID) {
+  this.props.navigator.push({
+      title: "insight Detail",
+      component: InsightDetail,
+      // passProps: {id:objectID}
+    });
+}
 
 var styles = StyleSheet.create({
   row: {
