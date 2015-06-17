@@ -55,17 +55,18 @@ var ListViewSimpleExample = React.createClass({
           </View>
         </TouchableHighlight>
     );
-  }.bind(this)
+  },
 
-})
+  _pressRow: function(objectID) {
+    this.props.navigator.push({
+        title: "insight Detail",
+        component: InsightDetail,
+        passProps: {id:objectID}
+      });
+    }
+});
 
-_pressRow = function(objectID) {
-  this.props.navigator.push({
-      title: "insight Detail",
-      component: InsightDetail,
-      // passProps: {id:objectID}
-    });
-}
+
 
 var styles = StyleSheet.create({
   row: {
