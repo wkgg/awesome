@@ -41,7 +41,8 @@ var EventList = React.createClass({
   rowPressed(rowData) {
     this.props.navigator.push({
       title: "Event Detail",
-      component: EventDetail
+      component: EventDetail,
+      passProps: {id:'55781ac3e4b0677664a3df1e'}
     });
   },
   _renderRow: function(rowData) {

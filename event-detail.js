@@ -1,10 +1,7 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- */
 'use strict';
 
 var React = require('react-native');
+var ActivityRepository = require('./activityRepository')
 var {
     AppRegistry,
     Image,
@@ -14,37 +11,45 @@ var {
     View,
     } = React;
 
-var MOCKED_EVENTS_DATA = [
-    {
-        title: '2015 China Blogging Competition',
-        basicInfo: {
-            time: '2015/06/01-2015/06/30',
-            region: 'China'
-        },
-        posters: {
-            thumbnail: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTm-j3fQmP3i6CIBVc_N6WsIYl6Ol4MvMRUqDOO9AqmFyFiAasI'
-        },
-        description: "ThoughtWorkers in China are smart and passionate about technology. We’re out there everyday solving some of our clients’ toughest problems through technology and we’re motivated to better humanity through software. We’re involved in a huge range of initiatives and are driving technical excellence and social change. So why not share your thoughts, experiences and lessons learnt with the outside world?"
-
-    },
-];
-
 var EventDetail = React.createClass({
+    getInitialState: function() {
+        return {
+            event: ""
+        };
+    },
+
+    componentDidMount: function() {
+        ActivityRepository.getById(this.props.id, function (data) {
+            this.setState({event: data});
+        }.bind(this));
+    },
+
     render: function () {
-        var event = MOCKED_EVENTS_DATA[0];
+        var event = this.state.event;
+        if(event !== ""){
+             console.log("date==========", event.get("eventDate"))
+            event= {
+                title: event.get("title"),
+                eventDate: event.get("eventDate"),
+                location: event.get("location"),
+                content: event.get("content"),
+                imageUrl: event.get("imageUrl")
+            };
+        }
+
         return (
             <View style={styles.eventDetail}>
                 <Image
-                    source={{uri: event.posters.thumbnail}}
+                    source={{uri: event.imageUrl}}
                     style={styles.thumbnail}
                     />
                 <View style={styles.basicInfo}>
                     <Text style={styles.title}>{event.title}</Text>
-                    <Text style={styles.time}>Time: {event.basicInfo.time}</Text>
-                    <Text style={styles.time}>Region: {event.basicInfo.region}</Text>
+                    <Text style={styles.time}>Time: {event.eventDate}</Text>
+                    <Text style={styles.time}>Region: {event.location}</Text>
                 </View>
                 <View style={styles.description}>
-                    <Text style={styles.description}>{event.description}</Text>
+                    <Text style={styles.description}>{event.content}</Text>
                 </View>
             </View>
         );
