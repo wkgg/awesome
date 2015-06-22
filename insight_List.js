@@ -39,19 +39,23 @@ var ListViewSimpleExample = React.createClass({
     return (
         <ListView
             dataSource={this.state.dataSource}
-            renderRow={this._renderRow}/>
+            renderRow={this._renderRow}
+            style={styles.listView}/>
     );
   },
 
   _renderRow: function (rowData, sectionID, rowID) {
-    console.log('hahahahahahahhahah');
-    console.log(rowData.id);
+
     return (
-        <TouchableHighlight onPress={() => this._pressRow(rowData.id)}>
+        <TouchableHighlight onPress={() => this._pressRow(rowData.id)} underlayColor='white'>
           <View>
-            <Text>
+            <Text style={styles.title}>
             {rowData.get('title')}
             </Text>
+            <Text style={styles.text}>
+            {rowData.get('description')}
+            </Text>
+          <View style={styles.separator} />
           </View>
         </TouchableHighlight>
     );
@@ -67,8 +71,13 @@ var ListViewSimpleExample = React.createClass({
 });
 
 
-
 var styles = StyleSheet.create({
+
+  listView: {
+    backgroundColor: '#F6F6F6',
+    color: '#F6F6F6',
+    tintColor:'white',
+  },
   row: {
     flexDirection: 'row',
     justifyContent: 'center',
@@ -83,7 +92,14 @@ var styles = StyleSheet.create({
     width: 64,
     height: 64,
   },
+  title: {
+    padding: 10,
+    fontSize:16,
+    fontWeight:'bold'
+  },
+
   text: {
+    padding:10,
     flex: 1,
   },
 });
