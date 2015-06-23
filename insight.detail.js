@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react-native');
+var insightRepository = require('./insightRepository')
 
 var {
     View,
@@ -14,14 +15,29 @@ var FAKE_INSIGHT = {
 };
 
 var InsightDetail = React.createClass({
+    getInitialState: function(){
+        return({
+            insight: ""
+        }
+        );
+    },
+    componentDidMount: function(){
+        insightRepository.getById(this.props.id, function(data){
+            this.setState({insight: data})
+        }.bind(this));
+    },
     render: function () {
-        var insight = FAKE_INSIGHT;
-        return (
-            <View style={styles.insightDetail}>
-                <Text style={styles.title}>{insight.title}</Text>
-                <Text style={styles.content}>{insight.content}</Text>
-            </View>
-        )
+        if(this.state.insight != ""){
+            var insight = this.state.insight
+            return (
+                <View style={styles.insightDetail}>
+                    <Text style={styles.title}>{insight.get("title")}</Text>
+                    <Text style={styles.content}>{insight.get("content")}</Text>
+                </View>
+            )
+        }
+        /* need improve later*/
+        return null;       
     }
 });
 
