@@ -6,7 +6,8 @@ var insightRepository = require('./insightRepository')
 var {
     View,
     Text,
-    StyleSheet
+    StyleSheet,
+    WebView
     } = React;
 
 var FAKE_INSIGHT = {
@@ -28,12 +29,16 @@ var InsightDetail = React.createClass({
     },
     render: function () {
         if(this.state.insight != ""){
-            var insight = this.state.insight
+            var insight = this.state.insight;
             return (
-                <View style={styles.insightDetail}>
-                    <Text style={styles.title}>{insight.get("title")}</Text>
-                    <Text style={styles.content}>{insight.get("content")}</Text>
-                </View>
+              <View>
+                <Text style={styles.title}>{insight.get("title")}</Text>
+                <WebView
+                    style={styles.webView}
+                    ref={'webview'}
+                    html={insight.get("content")}
+                    automaticallyAdjustContentInsets={false} />
+              </View>
             )
         }
         /* need improve later*/
@@ -53,7 +58,12 @@ var styles = StyleSheet.create({
     },
     content: {
         marginTop: 10
-    }
+    },
+    webView: {
+        marginTop: 10,
+        height: 500,
+        backgroundColor: 'white',
+    },
 });
 
 module.exports = InsightDetail;
