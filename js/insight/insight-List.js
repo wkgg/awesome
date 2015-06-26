@@ -11,7 +11,7 @@ var {
 
 var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
-var InsightDetail = require('./insight.detail');
+var InsightDetail = require('./insight-detail.js');
 
 var ListViewSimpleExample = React.createClass({
   statics: {

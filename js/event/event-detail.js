@@ -83,6 +83,7 @@ var styles = StyleSheet.create({
     },
     thumbnail: {
         marginTop: 75,
+        paddingLeft: 10,
         width: 200,
         height: 200,
     },

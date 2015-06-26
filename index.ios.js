@@ -5,10 +5,10 @@
 'use strict';
 
 var React = require('react-native');
-var InsightDetail = require('./insight.detail');
-var EventList = require('./eventList')
+var InsightDetail = require('./insight-detail.js');
+var EventList = require('./event-list')
 var EventDetail = require('./event-detail')
-var InsightList = require('./insight_List')
+var InsightList = require('./insight-List')
 
 var {
   AppRegistry,
