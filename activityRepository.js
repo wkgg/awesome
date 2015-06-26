@@ -28,7 +28,7 @@ activityRepo.getById = function(activityId, success, error){
 }
 
 activityRepo.getList = function(success, error){
-	var query = new AV.Query.doCloudQuery('select title, publishDate from Activity', {
+	var query = new AV.Query.doCloudQuery('select title, imageUrl, eventDate, location from Activity', {
 	success: success,
 	  error: error
 	});
