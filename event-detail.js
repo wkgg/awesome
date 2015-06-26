@@ -9,12 +9,15 @@ var {
     StyleSheet,
     Text,
     View,
+    WebView,
+    ScrollView
     } = React;
 
 var EventDetail = React.createClass({
     getInitialState: function() {
         return {
-            event: ""
+            event: "",
+            test: "test"
         };
     },
 
@@ -24,13 +27,17 @@ var EventDetail = React.createClass({
         }.bind(this));
     },
 
+    getHtml: function (title, content) {
+        var cssStyle = '<style>h1{font-size: 20px;}img{width:100%;height:200px;}</style>';
+        return '<!DOCTYPE html><html><body>' + cssStyle + '<h1>' + title + '</h1>' + content + '</body></html>';
+    },
+
     render: function () {
         var event = this.state.event;
         if(event !== ""){
-             console.log("date==========", event.get("eventDate"))
             event= {
                 title: event.get("title"),
-                eventDate: event.get("eventDate"),
+                eventDate: event.get("eventDate").toDateString(),
                 location: event.get("location"),
                 content: event.get("content"),
                 imageUrl: event.get("imageUrl")
@@ -38,20 +45,25 @@ var EventDetail = React.createClass({
         }
 
         return (
-            <View style={styles.eventDetail}>
-                <Image
-                    source={{uri: event.imageUrl}}
-                    style={styles.thumbnail}
-                    />
-                <View style={styles.basicInfo}>
-                    <Text style={styles.title}>{event.title}</Text>
-                    <Text style={styles.time}>Time: {event.eventDate}</Text>
-                    <Text style={styles.time}>Region: {event.location}</Text>
-                </View>
-                <View style={styles.description}>
-                    <Text style={styles.description}>{event.content}</Text>
-                </View>
-            </View>
+                <ScrollView style={styles.eventDetail}>
+                    <Image
+                        source={{uri: event.imageUrl}}
+                        style={styles.thumbnail}
+                        />
+                    <View style={styles.basicInfo}>
+                        <Text style={styles.title}>{event.title}</Text>
+                        <Text style={styles.time}>Time: {event.eventDate}</Text>
+                        <Text style={styles.time}>Region: {event.location}</Text>
+                    </View>
+
+                    <WebView
+                        style={styles.webView}
+                        ref={'webview'}
+                        html={this.getHtml('', event.content)}
+                        scrollEnabled={true}
+                        automaticallyAdjustContentInsets={false}/>
+
+                </ScrollView>
         );
     },
 });
@@ -60,8 +72,6 @@ var styles = StyleSheet.create({
     eventDetail: {
         flex: 1,
         flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center'
     },
     title: {
         fontSize: 20,
@@ -72,6 +82,7 @@ var styles = StyleSheet.create({
         textAlign: 'left',
     },
     thumbnail: {
+        marginTop: 75,
         width: 200,
         height: 200,
     },
@@ -80,8 +91,10 @@ var styles = StyleSheet.create({
 
     },
     description: {
-        padding: 10,
-        borderTopWidth: 1
+        //padding: 10,
+        //borderTopWidth: 1
+        backgroundColor: 'rgba(255,123,123,0.8)',
+        height: 500,
     }
 
 });
