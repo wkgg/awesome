@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react-native');
-var ActivityRepository = require('./activityRepository')
+var ActivityRepository = require('./activity-repository')
 var {
     AppRegistry,
     Image,

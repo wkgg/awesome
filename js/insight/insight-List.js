@@ -1,5 +1,5 @@
 var React = require('react-native');
-var insightRepo = require('./insightRepository');
+var insightRepo = require('./insight-repository');
 var {
   Image,
   ListView,

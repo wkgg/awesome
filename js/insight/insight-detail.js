@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react-native');
-var insightRepository = require('./insightRepository')
+var insightRepository = require('./insight-repository')
 
 var {
     View,

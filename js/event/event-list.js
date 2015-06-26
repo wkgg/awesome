@@ -2,7 +2,7 @@
 
 var React = require('react-native');
 var EventDetail = require('./event-detail');
-var eventRepository = require('./activityRepository');
+var eventRepository = require('./activity-repository');
 var moment = require('moment');
 
 var {

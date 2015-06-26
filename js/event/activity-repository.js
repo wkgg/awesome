@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react-native');
-var appconfig = require('./appconfig');
+var appconfig = require('../../appconfig');
 var AV = require('avoscloud-sdk').AV;
 
 var activityRepo = {};
