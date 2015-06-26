@@ -45,7 +45,7 @@ var EventDetail = React.createClass({
         }
 
         return (
-                <ScrollView style={styles.eventDetail}>
+                <View style={styles.eventDetail}>
                     <Image
                         source={{uri: event.imageUrl}}
                         style={styles.thumbnail}
@@ -63,7 +63,7 @@ var EventDetail = React.createClass({
                         scrollEnabled={true}
                         automaticallyAdjustContentInsets={false}/>
 
-                </ScrollView>
+                </View>
         );
     },
 });
