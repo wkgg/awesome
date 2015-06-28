@@ -37,11 +37,11 @@ var InsightDetail = React.createClass({
             return (
                 <View>
                     <ScrollView>
-                        <Text style={styles.title}>{insight.get("title")}</Text>
+                        <Text style={styles.title}>{insight.title}</Text>
                         <WebView
                             style={styles.webView}
                             ref={'webview'}
-                            html={this.getHtml('', insight.get("content"))}
+                            html={this.getHtml('', insight.content)}
                             scrollEnabled={true}
                             automaticallyAdjustContentInsets={false}/>
                     </ScrollView>

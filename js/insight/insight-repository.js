@@ -10,29 +10,40 @@ AV.initialize(appconfig.appId, appconfig.appKey);
 
 var Post = AV.Object.extend("Post");
 
-insightRepo.getAll = function(success, error){
-	var query = new AV.Query(Post);
-    query.find({
-        success: success,
-        error: error
-    });
-}
-
-insightRepo.getById = function(insightId, success, error){
-	var query = new AV.Query(Post);
+insightRepo.getById = function (insightId, success, error) {
+    var query = new AV.Query(Post);
 
     query.get(insightId, {
-        success: success,
+        success: function (data) {
+            success(getInsightObject(data));
+        },
         error: error
     });
-}
+};
 
-insightRepo.getList = function(success, error){
-	var query = new AV.Query.doCloudQuery('select title, description, tags, publishDate from Post', {
-	success: success,
-	  error: error
-	});
-}
+insightRepo.getList = function (success, error) {
+    var query = new AV.Query.doCloudQuery('select title, description, tags, publishDate from Post', {
+        success: function (data) {
+            var resultObj = data.results.map(function (row) {
+                return getInsightObject(row);
+            });
+            success(resultObj);
+        },
+        error: error
+    });
+};
+
+var getInsightObject = function (data) {
+    var insightObj = {};
+    insightObj.id = data.id;
+    insightObj.content = data.get('content');
+    insightObj.description = data.get('description');
+    insightObj.guid = data.get('guid');
+    insightObj.publishDate = data.get('publishDate');
+    insightObj.tags = data.get('tags');
+    insightObj.title = data.get('title');
+    return insightObj;
+};
 
 module.exports = insightRepo;
 

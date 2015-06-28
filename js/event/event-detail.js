@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react-native');
-var ActivityRepository = require('./activity-repository')
+var ActivityRepository = require('./activity-repository');
 var {
     AppRegistry,
     Image,
@@ -14,14 +14,14 @@ var {
     } = React;
 
 var EventDetail = React.createClass({
-    getInitialState: function() {
+    getInitialState: function () {
         return {
             event: "",
             test: "test"
         };
     },
 
-    componentDidMount: function() {
+    componentDidMount: function () {
         ActivityRepository.getById(this.props.id, function (data) {
             this.setState({event: data});
         }.bind(this));
@@ -34,68 +34,66 @@ var EventDetail = React.createClass({
 
     render: function () {
         var event = this.state.event;
-        if(event !== ""){
-            event= {
-                title: event.get("title"),
-                eventDate: event.get("eventDate").toDateString(),
-                location: event.get("location"),
-                content: event.get("content"),
-                imageUrl: event.get("imageUrl")
+        if (event !== "") {
+            event = {
+                title: event.title,
+                eventDate: event.eventDate.toDateString(),
+                location: event.location,
+                content: event.content,
+                imageUrl: event.imageUrl
             };
         }
 
         return (
-                <View style={styles.eventDetail}>
-                    <Image
-                        source={{uri: event.imageUrl}}
-                        style={styles.thumbnail}
-                        />
-                    <View style={styles.basicInfo}>
-                        <Text style={styles.title}>{event.title}</Text>
-                        <Text style={styles.time}>Time: {event.eventDate}</Text>
-                        <Text style={styles.time}>Region: {event.location}</Text>
-                    </View>
-
-                    <WebView
-                        style={styles.webView}
-                        ref={'webview'}
-                        html={this.getHtml('', event.content)}
-                        scrollEnabled={true}
-                        automaticallyAdjustContentInsets={false}/>
-
+            <View style={styles.eventDetail}>
+                <Image
+                    source={{uri: event.imageUrl}}
+                    style={styles.thumbnail}
+                    />
+                <View style={styles.basicInfo}>
+                    <Text style={styles.title}>{event.title}</Text>
+                    <Text style={styles.time}>Time: {event.eventDate}</Text>
+                    <Text style={styles.time}>Region: {event.location}</Text>
                 </View>
+
+                <WebView
+                    style={styles.webView}
+                    ref={'webview'}
+                    html={this.getHtml('', event.content)}
+                    scrollEnabled={true}
+                    automaticallyAdjustContentInsets={false}/>
+
+            </View>
         );
-    },
+    }
 });
 
 var styles = StyleSheet.create({
     eventDetail: {
         flex: 1,
-        flexDirection: 'column',
+        flexDirection: 'column'
     },
     title: {
         fontSize: 20,
         marginBottom: 8,
-        textAlign: 'center',
+        textAlign: 'center'
     },
     time: {
-        textAlign: 'left',
+        textAlign: 'left'
     },
     thumbnail: {
         marginTop: 75,
         paddingLeft: 10,
         width: 200,
-        height: 200,
+        height: 200
     },
     basicInfo: {
         paddingBottom: 10
 
     },
     description: {
-        //padding: 10,
-        //borderTopWidth: 1
         backgroundColor: 'rgba(255,123,123,0.8)',
-        height: 500,
+        height: 500
     }
 
 });
