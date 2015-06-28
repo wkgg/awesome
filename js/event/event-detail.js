@@ -2,6 +2,7 @@
 
 var React = require('react-native');
 var ActivityRepository = require('./activity-repository');
+var moment = require('moment');
 var {
     AppRegistry,
     Image,
@@ -10,40 +11,40 @@ var {
     Text,
     View,
     WebView,
-    ScrollView
-    } = React;
+    ScrollView,
+    AsyncStorage
+} = React;
+
+var EventDetailStorageKey = "";
 
 var EventDetail = React.createClass({
     getInitialState: function () {
         return {
-            event: "",
-            test: "test"
+            event: {}
         };
     },
-
     componentDidMount: function () {
+        EventDetailStorageKey = "event-detail-" + this.props.id;
         ActivityRepository.getById(this.props.id, function (data) {
-            this.setState({event: data});
+            AsyncStorage.setItem(EventDetailStorageKey, JSON.stringify(data)).then(() => {
+                this.getDataFromStorage();
+            });
         }.bind(this));
-    },
 
+        this.getDataFromStorage();
+    },
+    getDataFromStorage: function () {
+        AsyncStorage.getItem(EventDetailStorageKey).then((value) => {
+            var parsedData = JSON.parse(value);
+            this.setState({event: parsedData});
+        });
+    },
     getHtml: function (title, content) {
         var cssStyle = '<style>h1{font-size: 20px;}img{width:100%;height:200px;}</style>';
         return '<!DOCTYPE html><html><body>' + cssStyle + '<h1>' + title + '</h1>' + content + '</body></html>';
     },
-
     render: function () {
         var event = this.state.event;
-        if (event !== "") {
-            event = {
-                title: event.title,
-                eventDate: event.eventDate.toDateString(),
-                location: event.location,
-                content: event.content,
-                imageUrl: event.imageUrl
-            };
-        }
-
         return (
             <View style={styles.eventDetail}>
                 <Image
@@ -52,7 +53,7 @@ var EventDetail = React.createClass({
                     />
                 <View style={styles.basicInfo}>
                     <Text style={styles.title}>{event.title}</Text>
-                    <Text style={styles.time}>Time: {event.eventDate}</Text>
+                    <Text style={styles.time}>Time: {moment(event.eventDate).format("MMMM D, YYYY")}</Text>
                     <Text style={styles.time}>Region: {event.location}</Text>
                 </View>
 

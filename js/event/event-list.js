@@ -12,8 +12,10 @@ var {
     StyleSheet,
     Text,
     View,
-    } = React;
+    AsyncStorage
+} = React;
 
+var EventListStorageKey = "event-list";
 var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
 var EventList = React.createClass({
@@ -29,8 +31,17 @@ var EventList = React.createClass({
     },
     componentDidMount(){
         eventRepository.getList(function (data) {
-            this.setState({dataSource: ds.cloneWithRows(data)});
+            AsyncStorage.setItem(EventListStorageKey, JSON.stringify(data)).then(() => {
+                this.getDataFromStorage();
+            });
         }.bind(this));
+
+        this.getDataFromStorage();
+    },
+    getDataFromStorage: function () {
+        AsyncStorage.getItem(EventListStorageKey).then((value) => {
+            this.setState({dataSource: ds.cloneWithRows(JSON.parse(value))});
+        });
     },
     _renderRow: function (rowData) {
         return (

@@ -1,5 +1,7 @@
 var React = require('react-native');
 var insightRepo = require('./insight-repository');
+var InsightDetail = require('./insight-detail.js');
+
 var {
     Image,
     ListView,
@@ -7,41 +9,36 @@ var {
     StyleSheet,
     Text,
     View,
-    } = React;
+    AsyncStorage
+} = React;
 
+const InsightListStorageKey = "insight-list";
 var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-
-var InsightDetail = require('./insight-detail.js');
 
 var ListViewSimpleExample = React.createClass({
     statics: {
         title: '<ListView> - Simple',
         description: 'Performant, scrollable list of data.'
     },
-
     getInitialState: function () {
         return {
             dataSource: ds.cloneWithRows([])
         };
     },
-
     componentDidMount: function () {
         insightRepo.getList(function (data) {
-            this.setState({dataSource: ds.cloneWithRows(data)});
+            AsyncStorage.setItem(InsightListStorageKey, JSON.stringify(data)).then(() => {
+                this.getDataFromStorage();
+            });
         }.bind(this));
-    },
 
-    render: function () {
-        return (
-            <View>
-                <ListView
-                    dataSource={this.state.dataSource}
-                    renderRow={this._renderRow}
-                    style={styles.listView}/>
-            </View>
-        );
+        this.getDataFromStorage();
     },
-
+    getDataFromStorage: function () {
+        AsyncStorage.getItem(InsightListStorageKey).then((value) => {
+            this.setState({dataSource: ds.cloneWithRows(JSON.parse(value))});
+        });
+    },
     _renderRow: function (rowData, sectionID, rowID) {
 
         return (
@@ -58,13 +55,20 @@ var ListViewSimpleExample = React.createClass({
             </TouchableHighlight>
         );
     },
-
     _pressRow: function (objectID) {
         this.props.navigator.push({
             title: "insight Detail",
             component: InsightDetail,
             passProps: {id: objectID}
         });
+    },
+    render: function () {
+        return (
+            <ListView
+                dataSource={this.state.dataSource}
+                renderRow={this._renderRow}
+                style={styles.listView}/>
+        );
     }
 });
 

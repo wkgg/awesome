@@ -8,13 +8,11 @@ var {
     Text,
     StyleSheet,
     ScrollView,
-    WebView
+    WebView,
+    AsyncStorage
     } = React;
 
-var FAKE_INSIGHT = {
-    title: "this is title of insight",
-    content: "i am the body of a real insight which should be very long."
-};
+var InsightDetailStorageKey = "";
 
 var InsightDetail = React.createClass({
     getHtml: function (title, content) {
@@ -27,9 +25,20 @@ var InsightDetail = React.createClass({
         });
     },
     componentDidMount: function () {
+        InsightDetailStorageKey = "insight-detail-" + this.props.id;
+
         insightRepository.getById(this.props.id, function (data) {
-            this.setState({insight: data})
+            AsyncStorage.setItem(InsightDetailStorageKey, JSON.stringify(data)).then(() => {
+                this.getDataFromStorage();
+            });
         }.bind(this));
+
+        this.getDataFromStorage();
+    },
+    getDataFromStorage: function () {
+        AsyncStorage.getItem(InsightDetailStorageKey).then((value) => {
+            this.setState({insight: JSON.parse(value)});
+        });
     },
     render: function () {
         if (this.state.insight != "") {
