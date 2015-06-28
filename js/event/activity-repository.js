@@ -24,16 +24,14 @@ activityRepo.getById = function (activityId, success, error) {
 activityRepo.getList = function (success, error) {
     var query = new AV.Query.doCloudQuery('select title, imageUrl, eventDate, location from Activity', {
         success: function (data) {
-            var resultObj = data.results.map(function (row) {
-                return getActivityObject(row);
-            });
+            var resultObj = data.results.map(r => getActivityObject(r));
             success(resultObj);
         },
         error: error
     });
 };
 
-var getActivityObject = function (data) {
+function getActivityObject(data) {
     var activityObj = {};
     activityObj.id = data.id;
     activityObj.content = data.get('content');
@@ -43,7 +41,7 @@ var getActivityObject = function (data) {
     activityObj.tags = data.get('tags');
     activityObj.title = data.get('title');
     return activityObj;
-};
+}
 
 module.exports = activityRepo;
 

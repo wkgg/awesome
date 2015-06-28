@@ -33,10 +33,12 @@ var ListViewSimpleExample = React.createClass({
 
     render: function () {
         return (
-            <ListView
-                dataSource={this.state.dataSource}
-                renderRow={this._renderRow}
-                style={styles.listView}/>
+            <View>
+                <ListView
+                    dataSource={this.state.dataSource}
+                    renderRow={this._renderRow}
+                    style={styles.listView}/>
+            </View>
         );
     },
 
@@ -68,7 +70,6 @@ var ListViewSimpleExample = React.createClass({
 
 
 var styles = StyleSheet.create({
-
     listView: {
         backgroundColor: '#F6F6F6'
     },
@@ -91,7 +92,6 @@ var styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold'
     },
-
     text: {
         padding: 10,
         flex: 1

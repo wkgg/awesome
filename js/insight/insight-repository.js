@@ -24,16 +24,14 @@ insightRepo.getById = function (insightId, success, error) {
 insightRepo.getList = function (success, error) {
     var query = new AV.Query.doCloudQuery('select title, description, tags, publishDate from Post', {
         success: function (data) {
-            var resultObj = data.results.map(function (row) {
-                return getInsightObject(row);
-            });
+            var resultObj = data.results.map(r => getInsightObject(r));
             success(resultObj);
         },
         error: error
     });
 };
 
-var getInsightObject = function (data) {
+function getInsightObject(data) {
     var insightObj = {};
     insightObj.id = data.id;
     insightObj.content = data.get('content');
@@ -43,7 +41,7 @@ var getInsightObject = function (data) {
     insightObj.tags = data.get('tags');
     insightObj.title = data.get('title');
     return insightObj;
-};
+}
 
 module.exports = insightRepo;
 
