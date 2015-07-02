@@ -4,6 +4,7 @@ var React = require('react-native');
 var EventDetail = require('./event-detail');
 var eventRepository = require('./activity-repository');
 var moment = require('moment');
+var Icon = require('FAKIconImage');
 
 var {
     Image,
@@ -45,14 +46,21 @@ var EventList = React.createClass({
     },
     _renderRow: function (rowData) {
         return (
-            <TouchableHighlight onPress={() => this.rowPressed(rowData.id)}
-                                underlayColor='#dddddd'>
+            <TouchableHighlight 
+                underlayColor='#F5F5F5'
+                onPress={() => this.rowPressed(rowData.id)}>
                 <View style={styles.row}>
                     <Image style={styles.image} source={{uri: rowData.imageUrl}}/>
                     <Text style={styles.title}>{rowData.title}</Text>
-                    <Text style={styles.address}>{rowData.location}</Text>
-                    <Text
-                        style={styles.eventDate}>{moment(rowData.eventDate).format("dddd, MMMM Do YYYY, h:mm:ss a")}</Text>
+                    <View style={styles.line}>
+                        <Icon name='fontawesome|map-marker' size={13} color='green' style={styles.icons}/>
+                        <Text style={styles.address}>{rowData.location}</Text>
+                    </View>
+                    <View style={styles.line}>
+                        <Icon name='fontawesome|clock-o' size={13} color='green' style={styles.icons}/>
+                        <Text style={styles.eventDate}>{moment(rowData.eventDate).format("dddd, MMMM Do YYYY, h:mm a")}</Text>
+                    </View>
+                    <View style={styles.separator}/>
                 </View>
             </TouchableHighlight>
         );
@@ -66,22 +74,38 @@ var EventList = React.createClass({
 
 var styles = StyleSheet.create({
     row: {
-        padding: 10,
-        marginBottom: 10
+        padding: 5
+    },
+    line: {
+        flexDirection: 'row'
+    },
+    separator: {
+        height: 1,
+        backgroundColor: '#F5F5F5',
+        marginTop: 5
     },
     image: {
-        height: 200,
+        borderRadius: 10,
+        height: 195,
         marginBottom: 5
     },
     title: {
-        fontSize: 18,
+        fontSize: 16,
+        fontWeight: 'bold',
         marginBottom: 5
     },
     address: {
+        fontSize: 13,
         marginBottom: 5
     },
     eventDate: {
+        fontSize: 13,
         marginBottom: 5
+    },
+    icons: {
+        width: 13,
+        height: 13,
+        marginRight: 5
     }
 });
 
