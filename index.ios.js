@@ -1,7 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- */
 'use strict';
 
 var React = require('react-native');
@@ -9,6 +5,9 @@ var InsightDetail = require('./js/insight/insight-detail');
 var EventList = require('./js/event/event-list')
 var EventDetail = require('./js/event/event-detail')
 var InsightList = require('./js/insight/insight-list')
+var Icon = require('FAKIconImage');
+var SMXTabBarIOS = require('SMXTabBarIOS');
+var SMXTabBarItemIOS = SMXTabBarIOS.Item;
 
 var {
   AppRegistry,
@@ -51,29 +50,37 @@ var awesome = React.createClass({
   },
   render: function() {
     return (
-      <TabBarIOS>
-        <TabBarIOS.Item
-          title="Insights"
-          selected={this.state.selectedTab === 'InsightsTab'}
-          onPress={() => {
+        <SMXTabBarIOS>
+          <SMXTabBarItemIOS
+              name="insight"
+              iconName={'fontawesome|lightbulb-o'}
+              title={'Insights'}
+              iconSize={32}
+              accessibilityLabel="Home Tab"
+              selected={this.state.selectedTab === 'InsightsTab'}
+              onPress={() => {
             this.setState({
               selectedTab: 'InsightsTab',
             });
           }}>
-          {this._renderInsightList()}
-        </TabBarIOS.Item>
-
-        <TabBarIOS.Item
-          title="Events"
-          selected={this.state.selectedTab === 'EventsTab'}
-          onPress={() => {
+            {this._renderInsightList()}
+          </SMXTabBarItemIOS>
+          <SMXTabBarItemIOS
+              name="insight"
+              iconName={'fontawesome|users'}
+              title={'Events'}
+              iconSize={32}
+              accessibilityLabel="Home Tab"
+              selected={this.state.selectedTab === 'EventsTab'}
+              onPress={() => {
             this.setState({
               selectedTab: 'EventsTab',
             });
           }}>
-          {this._renderEventList()}
-        </TabBarIOS.Item>
-      </TabBarIOS>
+            {this._renderEventList()}
+          </SMXTabBarItemIOS>
+
+      </SMXTabBarIOS>
     );
   }
 });
