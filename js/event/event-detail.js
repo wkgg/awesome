@@ -58,7 +58,6 @@ var EventDetail = React.createClass({
                 </View>
 
                 <WebView
-                    style={styles.webView}
                     ref={'webview'}
                     html={this.getHtml('', event.content)}
                     scrollEnabled={true}
