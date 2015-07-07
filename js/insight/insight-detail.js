@@ -17,6 +17,13 @@ var InsightDetailStorageKey = "";
 var InsightDetail = React.createClass({
     getHtml: function (title, content) {
         var cssStyle = '<style>h1{font-size: 20px;}img{width:100%;height:200px;}</style>';
+
+        var allImageLink = content.match(/<a href=".*\.[jpg|png|jpeg]+">/i);
+        if(allImageLink !== null){
+            allImageLink.forEach(function(row){
+                content = content.replace(row, '<a>');
+            });
+        }
         return '<!DOCTYPE html><html><body>' + cssStyle + '<h1>' + title + '</h1>' + content + '</body></html>';
     },
     getInitialState: function () {
@@ -68,6 +75,7 @@ var styles = StyleSheet.create({
     },
     title: {
         fontSize: 20,
+        fontWeight: 'bold',
         marginTop: 10,
         textAlign: 'center'
     },
@@ -77,7 +85,7 @@ var styles = StyleSheet.create({
     webView: {
         marginTop: 10,
         backgroundColor: 'white',
-        height: 500
+        height: 800
     }
 });
 
