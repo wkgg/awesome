@@ -9,6 +9,7 @@
     "avoscloud-sdk": "^0.5.4",
     "moment": "^2.10.3",
     "react-native": ">= 0.6.0",
+    "react-native-html-webview": "0.0.12",
     "react-native-icons": "^0.1.0"
   }
 }

@@ -46,7 +46,7 @@ var ListViewSimpleExample = React.createClass({
     _renderRow: function (rowData, sectionID, rowID) {
 
         return (
-            <TouchableHighlight onPress={() => this._pressRow(rowData.id)} underlayColor='white'>
+            <TouchableHighlight onPress={() => this._pressRow(rowData.id,rowData.title)} underlayColor='white'>
                 <View>
                     <Text style={styles.title}>
                         {rowData.title}
@@ -59,9 +59,9 @@ var ListViewSimpleExample = React.createClass({
             </TouchableHighlight>
         );
     },
-    _pressRow: function (objectID) {
+    _pressRow: function (objectID,title) {
         this.props.navigator.push({
-            title: "insight Detail",
+            title: title,
             component: InsightDetail,
             passProps: {id: objectID}
         });

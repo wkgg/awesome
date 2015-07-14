@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react-native');
+var HTMLWebView = require('react-native-html-webview');
 var InsightDetail = require('./js/insight/insight-detail');
 var EventList = require('./js/event/event-list')
 var EventDetail = require('./js/event/event-detail')
@@ -33,7 +34,7 @@ var awesome = React.createClass({
       <NavigatorIOS
        style={styles.container}
        initialRoute={{
-         title: 'Event List',
+         title: 'Events',
          component: EventList,
        }}/>
     );
@@ -43,7 +44,7 @@ var awesome = React.createClass({
       <NavigatorIOS
        style={styles.container}
        initialRoute={{
-         title: 'Insight List',
+         title: 'Insights',
          component: InsightList,
        }}/>
     );

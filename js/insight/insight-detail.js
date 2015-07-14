@@ -13,6 +13,7 @@ var {
     } = React;
 
 var InsightDetailStorageKey = "";
+var HTMLWebView = require('react-native-html-webview');
 
 var InsightDetail = React.createClass({
     getHtml: function (title, content) {
@@ -51,17 +52,16 @@ var InsightDetail = React.createClass({
         if (this.state.insight != "") {
             var insight = this.state.insight;
             return (
-                <View>
-                    <ScrollView>
-                        <Text style={styles.title}>{insight.title}</Text>
-                        <WebView
+                <ScrollView>
+                    <View>
+                        <HTMLWebView
                             style={styles.webView}
-                            ref={'webview'}
-                            html={this.getHtml('', insight.content)}
-                            scrollEnabled={true}
-                            automaticallyAdjustContentInsets={false}/>
-                    </ScrollView>
-                </View>
+                            html={this.getHtml(insight.title, insight.content)}
+                            makeSafe={false}
+                            autoHeight={true}
+                            />
+                    </View>
+                </ScrollView>
             )
         }
         return null;
@@ -83,9 +83,7 @@ var styles = StyleSheet.create({
         marginTop: 10
     },
     webView: {
-        marginTop: 10,
-        backgroundColor: 'white',
-        height: 800
+        backgroundColor: 'white'
     }
 });
 
