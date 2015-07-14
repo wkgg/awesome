@@ -16,6 +16,10 @@ const InsightListStorageKey = "insight-list";
 var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
 var ListViewSimpleExample = React.createClass({
+    stripHTML: function(html){
+        var regex = /(<([^>]+)>)/ig;
+        return html.replace(regex, "");
+    },
     statics: {
         title: '<ListView> - Simple',
         description: 'Performant, scrollable list of data.'
@@ -48,7 +52,7 @@ var ListViewSimpleExample = React.createClass({
                         {rowData.title}
                     </Text>
                     <Text style={styles.text}>
-                        {rowData.description}
+                        {this.stripHTML(rowData.description)}
                     </Text>
                     <View style={styles.separator}/>
                 </View>
