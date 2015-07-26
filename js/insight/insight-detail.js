@@ -17,11 +17,11 @@ var HTMLWebView = require('react-native-html-webview');
 
 var InsightDetail = React.createClass({
     getHtml: function (title, content) {
-        var cssStyle = '<style>h1{font-size: 20px;}img{width:100%;height:200px;}</style>';
+        var cssStyle = '<style>h1{font-size: 20px;text-align: center;}img{width:100%;height:200px;}</style>';
 
         var allImageLink = content.match(/<a href=".*\.[jpg|png|jpeg]+">/i);
-        if(allImageLink !== null){
-            allImageLink.forEach(function(row){
+        if (allImageLink !== null) {
+            allImageLink.forEach(function (row) {
                 content = content.replace(row, '<a>');
             });
         }
@@ -69,19 +69,6 @@ var InsightDetail = React.createClass({
 });
 
 var styles = StyleSheet.create({
-    insightDetail: {
-        flex: 1,
-        flexDirection: 'column'
-    },
-    title: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        marginTop: 10,
-        textAlign: 'center'
-    },
-    content: {
-        marginTop: 10
-    },
     webView: {
         backgroundColor: 'white'
     }

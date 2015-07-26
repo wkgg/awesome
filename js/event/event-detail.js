@@ -3,6 +3,8 @@
 var React = require('react-native');
 var ActivityRepository = require('./activity-repository');
 var moment = require('moment');
+var HTMLWebView = require('react-native-html-webview');
+
 var {
     AppRegistry,
     Image,
@@ -13,7 +15,7 @@ var {
     WebView,
     ScrollView,
     AsyncStorage
-} = React;
+    } = React;
 
 var EventDetailStorageKey = "";
 
@@ -39,63 +41,37 @@ var EventDetail = React.createClass({
             this.setState({event: parsedData});
         });
     },
-    getHtml: function (title, content) {
+    getHtml: function () {
+        var event = this.state.event;
+        var title = event.title;
+        var time = event.eventDate;
+        var location = event.location;
+        var content = event.content;
+        var imageUrl = event.imageUrl;
+
+        debugger;
         var cssStyle = '<style>h1{font-size: 20px;}img{width:100%;height:200px;}</style>';
-        return '<!DOCTYPE html><html><body>' + cssStyle + '<h1>' + title + '</h1>' + content + '</body></html>';
+        var imageElement = '<img src=\"' + imageUrl + '\" />';
+        var titleElement = '<h1>' + title + '</h1>';
+        var timeElement = '<h1>Time: ' + moment(time).format("MMMM D, YYYY") + '</h1>';
+        var locationElement = '<h1>Location: ' + location + '</h1>';
+        return '<!DOCTYPE html><html><body>' + cssStyle + imageElement + titleElement + timeElement +
+            locationElement + content + '</body></html>';
     },
     render: function () {
-        var event = this.state.event;
         return (
-            <View style={styles.eventDetail}>
-                <Image
-                    source={{uri: event.imageUrl}}
-                    style={styles.thumbnail}
-                    />
-                <View style={styles.basicInfo}>
-                    <Text style={styles.title}>{event.title}</Text>
-                    <Text style={styles.time}>Time: {moment(event.eventDate).format("MMMM D, YYYY")}</Text>
-                    <Text style={styles.time}>Region: {event.location}</Text>
+            <ScrollView>
+                <View>
+                    <HTMLWebView
+                        html={this.getHtml()}
+                        makeSafe={false}
+                        autoHeight={true}/>
                 </View>
-
-                <WebView
-                    ref={'webview'}
-                    html={this.getHtml('', event.content)}
-                    scrollEnabled={true}
-                    automaticallyAdjustContentInsets={false}/>
-
-            </View>
+            </ScrollView>
         );
     }
 });
 
-var styles = StyleSheet.create({
-    eventDetail: {
-        flex: 1,
-        flexDirection: 'column'
-    },
-    title: {
-        fontSize: 20,
-        marginBottom: 8,
-        textAlign: 'center'
-    },
-    time: {
-        textAlign: 'left'
-    },
-    thumbnail: {
-        marginTop: 75,
-        paddingLeft: 10,
-        width: 200,
-        height: 200
-    },
-    basicInfo: {
-        paddingBottom: 10
-
-    },
-    description: {
-        backgroundColor: 'rgba(255,123,123,0.8)',
-        height: 500
-    }
-
-});
+var styles = StyleSheet.create({});
 
 module.exports = EventDetail;
