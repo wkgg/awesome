@@ -49,12 +49,11 @@ var EventDetail = React.createClass({
         var content = event.content;
         var imageUrl = event.imageUrl;
 
-        debugger;
-        var cssStyle = '<style>h1{font-size: 20px;}img{width:100%;height:200px;}</style>';
+        var cssStyle = '<style>h1{font-size: 20px;}h2{font-size: 17px;}img{width:100%;height:200px;}</style>';
         var imageElement = '<img src=\"' + imageUrl + '\" />';
         var titleElement = '<h1>' + title + '</h1>';
-        var timeElement = '<h1>Time: ' + moment(time).format("MMMM D, YYYY") + '</h1>';
-        var locationElement = '<h1>Location: ' + location + '</h1>';
+        var timeElement = '<h2>Time: ' + moment(time).format("MMMM D, YYYY") + '</h1>';
+        var locationElement = '<h2>Location: ' + location + '</h1>';
         return '<!DOCTYPE html><html><body>' + cssStyle + imageElement + titleElement + timeElement +
             locationElement + content + '</body></html>';
     },
